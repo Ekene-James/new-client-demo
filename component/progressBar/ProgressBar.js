@@ -1,145 +1,62 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 
-import Typography from '@material-ui/core/Typography';
-import Image from 'next/image';
+import LinearProgress from '@material-ui/core/LinearProgress';
+import OnScreenObserver from '../../observerHook';
 
-const useStyles = makeStyles((theme) => ({
-    '@keyframes animate' : {
-      '0%': {
-        transform:'perspective(1000px) rotateY(0deg)'
-        },
-      '100%':{
-        transform:'perspective(1000px) rotateY(360deg)'
-      }  
+const BorderLinearProgress = withStyles((theme) => ({
+  root: {
+    height: 10,
+    borderRadius: 5,
+    width:'70%'
   },
-    '@keyframes txt' : {
-      'from': {
-       opacity:0
-      },
-      'to': {
-        opacity:1
-       
-      }
+  colorPrimary: {
+    backgroundColor: theme.palette.grey[theme.palette.type === 'light' ? 200 : 700],
   },
-  container: {
-
-    display:'flex',
-    justifyContent:'center',
-    alignItems:'center',
-    height:'100vh',
-    width:'100%',
-    background: 'black',
-    overflow:'hidden',
-    flexDirection:'column',
-    position:'relative',
-    
+  bar: {
+    borderRadius: 5,
+    backgroundColor: '#AA6c39',
   },
-  box: {
+}))(LinearProgress);
 
-  
-    height:'350px',
-    width:'550px',
-    position:'relative',
-    transformOrigin:'center',
-    transformStyle:'preserve-3d',
-    animation:'$animate 20s linear infinite',
-    WebkitBoxReflect:'below 0px linear-gradient(transparent,transparent,#0009)',
-        
+
+
+
+
+const useStyles = makeStyles({
+  root: {
+   width:'100%',
+   display:'flex',
+   alignItems:'center',
+   justifyContent:'space-between',
+   color:'white'
   },
-  span: {
-    position:'absolute',
-    top:'0',
-    left:0,
-    
-    width:'100%',
-    height:'100%',
-    transformOrigin:'center',
-    transformStyle:'preserve-3d',
-    overflowX:'hidden'
-  
+});
 
-
-  },
-  img: {
-    position:'absolute',
-    top:'0',
-    left:0,
-    width:'100%',
-    height:'100%',
-    // maxWidth:'150px',
-    // maxHeight:'150px',
-    
-  objectFit:'contain'
-
-
-  },
-  captivating: {
-   margin:0,
-   marginTop:'-50px',
-    backgroundImage: 'linear-gradient(-225deg,#231557 0%,#44107a 29%,#ff1361 67%,#fff800 100%)',
-    justifySelf:'start',
-    backgroundClip: 'text',
-    WebkitBackgroundClip: 'text',
-    textFillColor: 'transparent',
-    WebkitTextFillColor: 'transparent',
-    fontSize: '100px',
-    animation:'$txt 1s linear forward',
-
-
-  },
-  km: {
-   margin:0,
-
-    backgroundImage: 'linear-gradient(-225deg,#ff1361 15%,#fff800 100%)',
-    
-    backgroundClip: 'text',
-    WebkitBackgroundClip: 'text',
-    textFillColor: 'transparent',
-    WebkitTextFillColor: 'transparent',
-    fontSize: '100px',
-    animation:'$txt 1s linear forward',
-    position:'absolute',
-    bottom:'5%',
-    right:'30%'
-
-
-  },
-  unit: {
-  
-   
-    backgroundImage: 'linear-gradient(-225deg,#ff1361 15%,#fff800 100%)',
-    
-    backgroundClip: 'text',
-    WebkitBackgroundClip: 'text',
-    textFillColor: 'transparent',
-    WebkitTextFillColor: 'transparent',
-    
-    animation:'$txt 1s linear forward',
-   
-    position:'absolute',
-    bottom:'15%',
-    right:'27%',
-
-  },
- 
-}));
-
- function ProgressBar() {
-  
+export default function CustomizedLinearProgressBars({isIntersecting,desc,timeToStop}) {
   const classes = useStyles();
+  const [progress, setProgress] = React.useState(0);
+  const timer = React.useRef(null)
+
+
+  React.useEffect(() => {
+    if(isIntersecting){
+      if(progress > timeToStop) clearInterval(timer.current);
+       timer.current = setInterval(() => {
+        setProgress((prevProgress) => (prevProgress >= timeToStop ? timeToStop : prevProgress + 1));
+      }, 50);
+
+    }
+    return () => {
+      clearInterval(timer.current);
+    };
+  }, [isIntersecting]);
 
   return (
-    <div className={classes.container}>
-    
-
-    <div className="progress2 progress-moved">
-        <div className="progress-bar2"></div>
-        <div className="loader" style="--n: 1; --f: 0;"></div>
-    </div>
-  
+    <div className={classes.root}>
+      <p>{desc}</p>
+          <BorderLinearProgress variant="determinate" value={progress} />
+      <p>{progress} KM/H</p>
     </div>
   );
 }
-export default ProgressBar
-//style={{transform:'rotateY(45deg) translateZ(400px)'}}

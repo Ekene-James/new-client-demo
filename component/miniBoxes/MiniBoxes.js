@@ -31,10 +31,10 @@ const useStyles = makeStyles((theme) => ({
 
   return (
     <div className={classes.root} style={{width}}>
-    <Typography variant="h3" style={{color:'black'}} component="p">
+    <Typography variant="h5" style={{color:'black'}} component="p">
          {header}
     </Typography>
-    <Typography variant="body2" style={{color:'black'}} component="p">
+    <Typography variant="body2" style={{color:'black',maxWidth:'90%'}} component="p">
          {desc}
     </Typography>
     

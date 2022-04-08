@@ -1,6 +1,7 @@
 import React from 'react'
 import { makeStyles,Typography,Grid} from '@material-ui/core';
-import MiniBoxes from '../simplePlan/MiniBoxes';
+import MiniBoxes from '../miniBoxes/MiniBoxes';
+
 const useStyles = makeStyles((theme) => ({
     root: {
         margin:'0',
@@ -20,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
     
     
   }));
-function ViewEverything({txt}) {
+function ViewEverything() {
     const classes = useStyles();
     return (
     <div className={classes.root}>

@@ -3,7 +3,8 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import Typography from '@material-ui/core/Typography';
 import Image from 'next/image';
-import MiniBoxes from './MiniBoxes';
+import MiniBoxes from '../miniBoxes/MiniBoxes';
+
 
 const useStyles = makeStyles((theme) => ({
   root: {

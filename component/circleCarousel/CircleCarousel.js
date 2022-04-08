@@ -1,8 +1,8 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import clsx from 'clsx';
+import OnScreenObserver from '../../observerHook';
 
-import Typography from '@material-ui/core/Typography';
-import Image from 'next/image';
 
 const useStyles = makeStyles((theme) => ({
     '@keyframes animate' : {
@@ -13,15 +13,7 @@ const useStyles = makeStyles((theme) => ({
         transform:'perspective(1000px) rotateY(360deg)'
       }  
   },
-    '@keyframes txt' : {
-      'from': {
-       opacity:0
-      },
-      'to': {
-        opacity:1
-       
-      }
-  },
+ 
   container: {
 
     display:'flex',
@@ -43,9 +35,12 @@ const useStyles = makeStyles((theme) => ({
     position:'relative',
     transformOrigin:'center',
     transformStyle:'preserve-3d',
-    animation:'$animate 20s linear infinite',
     WebkitBoxReflect:'below 0px linear-gradient(transparent,transparent,#0009)',
-        
+    
+  },
+  animate:{
+    animation:'$animate 20s linear infinite',
+
   },
   span: {
     position:'absolute',
@@ -84,7 +79,7 @@ const useStyles = makeStyles((theme) => ({
     textFillColor: 'transparent',
     WebkitTextFillColor: 'transparent',
     fontSize: '100px',
-    animation:'$txt 1s linear forward',
+  
 
 
   },
@@ -98,7 +93,7 @@ const useStyles = makeStyles((theme) => ({
     textFillColor: 'transparent',
     WebkitTextFillColor: 'transparent',
     fontSize: '100px',
-    animation:'$txt 1s linear forward',
+   
     position:'absolute',
     bottom:'5%',
     right:'30%'
@@ -115,7 +110,7 @@ const useStyles = makeStyles((theme) => ({
     textFillColor: 'transparent',
     WebkitTextFillColor: 'transparent',
     
-    animation:'$txt 1s linear forward',
+  
    
     position:'absolute',
     bottom:'15%',
@@ -127,14 +122,19 @@ const useStyles = makeStyles((theme) => ({
  
 }));
 
- function CircleCarousel({header,desc}) {
+ function CircleCarousel() {
   
   const classes = useStyles();
-
+  const containerRef = React.useRef(null);
+  const isIntersecting = OnScreenObserver(containerRef,0.5)
   return (
-    <div className={classes.container}>
+    <div className={classes.container} ref={containerRef}>
     <h3 className={classes.captivating}>IT'S CAPTIVATING</h3>
-    <div className={classes.box}>
+    <div 
+    className={clsx(classes.box, {
+      [classes.animate]: isIntersecting,
+        })}
+    >
       <span  className={classes.span} ><img  className={classes.img} src={'/images/NXE Blue.png'} alt={'img'}/></span>
     </div>
 

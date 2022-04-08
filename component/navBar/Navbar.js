@@ -7,7 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import MailIcon from '@material-ui/icons/Mail';
 import MenuIcon from '@material-ui/icons/Menu';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
-import Modal from '../Modal';
+
 import clsx from 'clsx';
 import Link from 'next/link'
 
@@ -15,7 +15,7 @@ import SideBar from './SideBar'
 import CallIcon from '@material-ui/icons/Call';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import ScheduleIcon from '@material-ui/icons/Schedule';
-import CartModal from '../Modal/CartModal';
+
 
 import { Button,Badge, Hidden } from '@material-ui/core';
 import { AppStoreContext } from '../../store/AppStore';
@@ -207,10 +207,7 @@ function Navbar() {
       <Hidden mdUp>
        <SideBar burger={burger} hamburgerClick={hamburgerClick}/>
         </Hidden>
-        <Modal open={open} maxWidth='md' handleClose={handleClose} actions={[{handler:() => handleClose(),
-                    text:"Close",id:5}]} title='Cart'>
-                   <CartModal handleClose={handleClose}/>
-          </Modal>
+       
     </div>
   );
 }
