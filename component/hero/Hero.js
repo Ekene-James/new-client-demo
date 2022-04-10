@@ -51,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
 
   return (
     <div className={classes.root}>
-    <video autoPlay muted id="heroVideo" src='video-home-kv.mp4' className={classes.vid} loop  />
+    <video autoPlay muted  src='video-home-kv.mp4' className={classes.vid} loop  />
         <div className={classes.content}>
   
         </div>

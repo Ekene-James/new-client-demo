@@ -2,7 +2,6 @@ import React from 'react';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 
 import LinearProgress from '@material-ui/core/LinearProgress';
-import OnScreenObserver from '../../observerHook';
 
 const BorderLinearProgress = withStyles((theme) => ({
   root: {
@@ -33,7 +32,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function CustomizedLinearProgressBars({isIntersecting,desc,timeToStop}) {
+export default function ProgressBar({isIntersecting,desc,timeToStop}) {
   const classes = useStyles();
   const [progress, setProgress] = React.useState(0);
   const timer = React.useRef(null)
