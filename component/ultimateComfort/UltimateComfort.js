@@ -24,8 +24,8 @@ const useStyles = makeStyles((theme) => ({
         alignItems:'center',
         flexDirection:'column',
         padding:'50px',
-        background:'#333',
         color:'white',
+        background:'#333',
        
         boxShadow: '0 20px 50px rgba(0,0,0,.8)',
         
